@@ -17,7 +17,7 @@ pacman::p_load(tidyverse, here, psych, gmodels)
 
 
 ```{r, warning=FALSE, message=FALSE}
-Data <- read_csv(here('Data\\Raw\\unitedRawData.csv'))
+Data <- read_csv(here('Data\\Data.csv'))
 
 
 ```
@@ -53,11 +53,6 @@ replaceMETI <- function(data, Condition, goodChar){
 }
 ```
 
-
-```{r, warning=FALSE, message=FALSE}
-Data <- Data %>% 
-  mutate(DV = if_else(is.na(DV_BlackUp) == FALSE, DV_BlackUp, DV_BlueUp))
-```
 
 ```{r, warning=FALSE, message=FALSE}
 brownKnow <- Data %>% 
@@ -174,7 +169,7 @@ Data <- Data %>%
   filter(Disturbances == 'No') %>% 
   filter(Alone == 'Alone') %>% 
   filter(Honesty == 'Yes, I put in a reasonable effort') %>% 
-  filter(choiceExplenation != 'they both were accurate  but i like the color blue more') %>% 
+  filter(choiceExplenation != 'better outlook i believe') %>% 
   filter((whoNotKnow == 'Analyst Brown' & Condition == 'blueKnow') | (whoNotKnow == 'Analyst Blue' & Condition == 'brownKnow'))
 ```
 
