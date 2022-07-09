@@ -125,7 +125,7 @@ intelectualUmility <- function(data, Reverse = FALSE){
   
     if(Reverse == TRUE){
   
-  data <- if_else(data == 'Strongly', 7,
+  data <- if_else(data == 'Strongly Disagree', 7,
                   if_else(data == 'Disagree', 6,
                           if_else(data == 'Slightly disagree', 5,
                                   if_else(data == 'Neither agree nor disagree', 4,
@@ -135,7 +135,7 @@ intelectualUmility <- function(data, Reverse = FALSE){
   
 }else{
   
- data <- if_else(data == 'Strongly', 1,
+ data <- if_else(data == 'Strongly Disagree', 1,
                   if_else(data == 'Disagree', 2,
                           if_else(data == 'Slightly disagree', 3,
                                   if_else(data == 'Neither agree nor disagree', 4,
