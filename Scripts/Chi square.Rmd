@@ -1,0 +1,76 @@
+---
+title: "Chi square"
+output:
+  html_document:
+    code_folding: hide
+date: '2022-07-09'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, warning=FALSE, message=FALSE}
+pacman::p_load(tidyverse, here, effectsize, psych, gmodels)
+Data <- read_csv(here('Data\\dataForAnalysis.csv'))
+```
+
+# Chi square for goodness of fit: DV = Advisor preferation
+## Table, Model, Effect size
+
+```{r, warning=FALSE, message=FALSE}
+CrossTable(Data$DV, format = 'SPSS', chisq = TRUE)
+Model <- chisq.test(table(Data$DV), p = c(0.5, 0.5), correct = FALSE)
+Model
+effectsize(Model, 'normalized_chi')
+```
+
+
+# Chi square for goodness of fit: DV = Who made more errors
+
+```{r, warning=FALSE, message=FALSE}
+CrossTable(Data$whoErrors, format = 'SPSS', chisq = TRUE)
+Model <- chisq.test(table(Data$whoErrors), p = c(1 / 2, 1 / 2), correct = FALSE)
+Model
+effectsize(Model, 'normalized_chi')
+```
+
+# Chi square for goodness of fit: DV = Advisor preferation: for Pp who said that the advisor who made more errors is the advisor who know
+
+```{r, warning=FALSE, message=FALSE}
+CrossTable(Data$DV[Data$whoErrors == 'knowError'], format = 'SPSS', chisq = TRUE)
+Model <- chisq.test(table(Data$DV[Data$whoErrors == 'knowError']), p = c(0.5, 0.5), correct = FALSE)
+Model
+effectsize(Model, 'normalized_chi')
+```
+
+# Chi square for goodness of fit: DV = Advisor preferation: for Pp who said that the two advisors made the same number of mistakes
+```{r, warning=FALSE, message=FALSE}
+CrossTable(Data$DV[Data$whoErrors == 'Both'], format = 'SPSS', chisq = TRUE)
+Model <- chisq.test(table(Data$DV[Data$whoErrors == 'Both']), p = c(0.5, 0.5), correct = FALSE)
+Model
+effectsize(Model, 'normalized_chi')
+```
+
+
+# Chi square for independece: Advisor preferation * Advisor errors
+
+```{r, warning=FALSE, message=FALSE}
+CT(Data$whoErrors, Data$DV)
+```
+
+# Chi square for goodness of fit: DV = face decision task
+
+```{r, warning=FALSE, message=FALSE}
+CrossTable(Data$faceDecision, format = 'SPSS', chisq = TRUE)
+Model <- chisq.test(table(Data$faceDecision), p = c(0.5, 0.5), correct = FALSE)
+Model
+effectsize(Model, 'normalized_chi')
+```
+
+# Chi square for independece: Advisor preferation * face decision task
+
+```{r, warning=FALSE, message=FALSE}
+CT(Data$DV, Data$faceDecision)
+```
+
